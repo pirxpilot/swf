@@ -29,10 +29,32 @@ sfw.yql = (function($) {
 }(jQuery));
 
 sfw.main = (function($) {
-  function addRegions($container, $pattern, results) {
+  function addTips($container, $template, results) {
+    $container.empty();
+    $.each(results.tip, function(i, t) {
+      var $p = $template.clone();
+      $('.fish', $p).text(t.fish).addClass('tip_' + t.recommendaton);
+      $('.recommendation', $p).text(t.recommendaton);
+      $container.append($p);
+    });
+  }
+
+  function onRegionClick(region_id) {
+    var yql = sfw.yql({
+      q : 'select * from seafoodwatch.tip where region_id =' + region_id + ';'
+    });
+    yql.retrieve(function(r) {
+      addTips($('#tips ul'), $('#tip_template li'), r);
+    });
+  }
+
+  function addRegions($container, $template, results) {
+    $container.empty();
     $.each(results.region, function(i, r) {
-      var $p = $pattern.clone();
-      $('a', $p).text(r.name).attr('id', r.id);
+      var $p = $template.clone();
+      $('a', $p).text(r.name).attr('id', r.id).click(function() {
+        onRegionClick(this.id);
+      });
       $container.append($p);
     });
   }
@@ -42,7 +64,7 @@ sfw.main = (function($) {
       q : 'select * from seafoodwatch.region;'
     });
     yql.retrieve(function(r) {
-      addRegions(spec.container, spec.pattern, r);
+      addRegions(spec.container, spec.template, r);
     });
   }
 
