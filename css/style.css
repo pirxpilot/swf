@@ -1,0 +1,19 @@
+ul.individual li {
+    width: 32%;
+}
+
+ul.individual li + li {
+    float: left;
+}
+
+.tip_best {
+	color: green;
+}
+
+.tip_good {
+  color: yellow;
+}
+
+.tip_avoid {
+  color: red;
+}

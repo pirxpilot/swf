@@ -39,12 +39,15 @@ sfw.main = (function($) {
     });
   }
 
-  function onRegionClick(region_id) {
+  function onRegionClick(region_id, recommendation) {
     var yql = sfw.yql({
-      q : 'select * from seafoodwatch.tip where region_id =' + region_id + ';'
+      q : 'select * from seafoodwatch.tip where region_id =' + region_id +
+        ' and recommendation=\"'+ recommendation+'\";'
     });
+    localStorage.current_region_id = region_id;
+    localStorage.current_recommendation = recommendation;
     yql.retrieve(function(r) {
-      addTips($('#tips ul'), $('#tip_template li'), r);
+      addTips($('#tips ul.fish_list'), $('#tip_template li'), r);
     });
   }
 
@@ -53,13 +56,23 @@ sfw.main = (function($) {
     $.each(results.region, function(i, r) {
       var $p = $template.clone();
       $('a', $p).text(r.name).attr('id', r.id).click(function() {
-        onRegionClick(this.id);
+        onRegionClick(this.id, localStorage.current_recommendation);
       });
       $container.append($p);
     });
   }
 
+  function addClicks() {
+    $('#tips ul.menu li a').click(function(){
+      var recommendation = this.id.slice(7);
+      onRegionClick(localStorage.current_region_id, recommendation);
+      return false;
+    });
+  }
+
   function init(spec) {
+    localStorage.current_recommendation = 'best';
+    addClicks();
     var yql = sfw.yql({
       q : 'select * from seafoodwatch.region;'
     });
