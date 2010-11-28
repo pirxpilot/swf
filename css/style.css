@@ -7,13 +7,17 @@ ul.individual li + li {
 }
 
 .tip_best {
-	color: green;
+	color: #00ff33;
 }
 
 .tip_good {
-  color: yellow;
+  color: #ffff33;
 }
 
 .tip_avoid {
-  color: red;
+  color: #ff3300;
+}
+
+ul.fish_list {
+	font-size: 14px;
 }

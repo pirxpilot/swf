@@ -56,6 +56,7 @@ sfw.main = (function($) {
     $.each(results.region, function(i, r) {
       var $p = $template.clone();
       $('a', $p).text(r.name).attr('id', r.id).click(function() {
+        $('#tips h1').text(this.innerText);
         onRegionClick(this.id, localStorage.current_recommendation);
       });
       $container.append($p);
