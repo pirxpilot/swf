@@ -30,7 +30,6 @@ sfw.yql = (function($) {
 
 sfw.main = (function($) {
   function addTips($container, $template, results) {
-    $container.empty();
     $.each(results.tip, function(i, t) {
       var $p = $template.clone();
       $('.fish', $p).text(t.fish).addClass('tip_' + t.recommendaton);
@@ -46,8 +45,10 @@ sfw.main = (function($) {
     });
     localStorage.current_region_id = region_id;
     localStorage.current_recommendation = recommendation;
+    var $container = $('#tips ul.fish_list');
+    $container.empty();
     yql.retrieve(function(r) {
-      addTips($('#tips ul.fish_list'), $('#tip_template li'), r);
+      addTips($container, $('#tip_template li'), r);
     });
   }
 
@@ -64,10 +65,9 @@ sfw.main = (function($) {
   }
 
   function addClicks() {
-    $('#tips ul.menu li a').click(function(){
+    $('#tip_selector a').click(function(){
       var recommendation = this.id.slice(7);
       onRegionClick(localStorage.current_region_id, recommendation);
-      return false;
     });
   }
 

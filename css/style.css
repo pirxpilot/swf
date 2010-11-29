@@ -6,6 +6,14 @@ ul.individual li + li {
     float: left;
 }
 
+#tip_selector a {
+	float: left;
+}
+
+#tip_selector + ul {
+	clear: both;
+}
+
 .tip_best {
 	color: #00ff33;
 }
