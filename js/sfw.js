@@ -14,7 +14,7 @@ sfw.yql = (function ($) {
   function init(spec) {
     var self = {}, memo = {
       url : 'http://query.yahooapis.com/v1/public/yql',
-      env : 'http://www.stom-k.com/yql/seafoodwatch.env'
+      env : 'http://github.com/dkrzemin/yql-tables/raw/wip/seafoodwatch/seafoodwatch.env'
     };
 
     $.extend(memo, spec);
@@ -41,8 +41,8 @@ sfw.main = (function ($) {
   function addTips($container, $template, results, $selector) {
     $.each(results.tip, function (i, t) {
       var $p = $template.clone();
-      $('.fish', $p).text(t.fish).addClass('tip_' + t.recommendaton);
-      $('.recommendation', $p).text(t.recommendaton);
+      $('.fish', $p).text(t.fish).addClass('tip_' + t.recommendation);
+      $('.recommendation', $p).text(t.recommendation);
       $container.append($p);
     });
     $.mobile.pageLoading(true);
