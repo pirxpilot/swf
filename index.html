@@ -4,39 +4,45 @@
 
   <title>Seafood watch</title>
   
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script type="text/javascript"> google.load("jquery", "1.4.2"); </script>
-  <script src="lib/jQTouch/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
-  <style type="text/css" media="screen">@import "lib/jQTouch/jqtouch/jqtouch.min.css";</style>
-  <style type="text/css" media="screen">@import "lib/jQTouch/themes/jqt/theme.min.css";</style>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />
+  <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>
+		
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id='home'>
-  	<div class='toolbar'>
+  <div data-role='page' data-theme='a' id='home'>
+  	<div data-role='header'>
       <h1>Regions</h1>
   	</div>
-		<ul class='rounded'>
-			<!-- regions from seafood.region table go here -->
-		</ul>
-  </div>
-	<div id='tips'>
-    <div class='toolbar'>
-      <h1>Tips</h1>
-      <a class="button back" href="#home">Back</a>
-    </div>
-		<div id='tip_selector'>
-			<a class='whiteButton active' id='select_best'>Best</a>
-			<a class='whiteButton' id='select_good'>Good</a>
-      <a class='whiteButton' id='select_avoid'>Avoid</a>
+		<div data-role='content'>
+			<ul data-role='listview'>
+				<!-- regions from seafood.region table go here -->
+			</ul>
 		</div>
-    <ul class='plastic fish_list'>
-      <!-- tips from seafood.tip table go here -->
-    </ul>
+  </div>
+	<div data-role='page' data-theme='a' id='tips'>
+    <div data-role='header' data-position='fixed'>
+      <h1>Tips</h1>
+    </div>
+    <div data-role='content'>
+	    <ul class='fish_list' data-role='listview' data-theme='c'>
+	      <!-- tips from seafood.tip table go here -->
+	    </ul>
+    </div>
+    <div data-role='footer' data-position='fixed'>
+      <div id='tip_selector' data-role='navbar'>
+        <ul>
+          <li><a class='ui-btn-active' id='select_best' data-icon='star' data-iconpos='bottom'>Best</a></li>
+          <li><a id='select_good' data-icon='alert' data-iconpos='bottom'>Good</a></li>
+          <li><a id='select_avoid' data-icon='delete' data-iconpos='bottom'>Avoid</a></li>
+        </ul>
+      </div>
+    </div>
 	</div>
 	<div style='display:none'>
 	  <div id='region_template' >
-	    <li class='arrow'><a href='#tips'></a></li>
+	    <li><a href='#tips'></a></li>
 	  </div>
     <div id='tip_template'>
       <li>
@@ -46,8 +52,6 @@
 	</div>
   <script src="js/sfw.js?v=1"></script>
   <script>
-var jQT = $.jQTouch({
-});
 jQuery(function ($) {
 	sfw.main({
 		container: $('#home ul'),

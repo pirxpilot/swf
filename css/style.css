@@ -1,19 +1,4 @@
-ul.individual li {
-    width: 32%;
-}
-
-ul.individual li + li {
-    float: left;
-}
-
-#tip_selector a {
-	float: left;
-}
-
-#tip_selector + ul {
-	clear: both;
-}
-
+/*
 .tip_best {
 	color: #00ff33;
 }
@@ -25,7 +10,6 @@ ul.individual li + li {
 .tip_avoid {
   color: #ff3300;
 }
+*/
 
-ul.fish_list {
-	font-size: 14px;
-}
+

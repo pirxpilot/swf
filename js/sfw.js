@@ -29,16 +29,22 @@ sfw.yql = (function($) {
 }(jQuery));
 
 sfw.main = (function($) {
-  function addTips($container, $template, results) {
+  function addTips($container, $template, results, $selector) {
     $.each(results.tip, function(i, t) {
       var $p = $template.clone();
       $('.fish', $p).text(t.fish).addClass('tip_' + t.recommendaton);
       $('.recommendation', $p).text(t.recommendaton);
       $container.append($p);
     });
+    $.mobile.pageLoading(true);
+    $container.listview('refresh');
+    if($selector) {
+      $selector.addClass('ui-btn-active');
+    }
+    $.fixedToolbars.show(true);
   }
 
-  function onRegionClick(region_id, recommendation) {
+  function onRegionClick(region_id, recommendation, $selector) {
     var yql = sfw.yql({
       q : 'select * from seafoodwatch.tip where region_id =' + region_id +
         ' and recommendation=\"'+ recommendation+'\";'
@@ -46,9 +52,11 @@ sfw.main = (function($) {
     localStorage.current_region_id = region_id;
     localStorage.current_recommendation = recommendation;
     var $container = $('#tips ul.fish_list');
+    $.fixedToolbars.hide(true);
     $container.empty();
+    $.mobile.pageLoading();
     yql.retrieve(function(r) {
-      addTips($container, $('#tip_template li'), r);
+      addTips($container, $('#tip_template li'), r, $selector);
     });
   }
 
@@ -62,12 +70,14 @@ sfw.main = (function($) {
       });
       $container.append($p);
     });
+    $.mobile.pageLoading(true);
+    $container.listview('refresh');
   }
 
   function addClicks() {
     $('#tip_selector a').click(function(){
       var recommendation = this.id.slice(7);
-      onRegionClick(localStorage.current_region_id, recommendation);
+      onRegionClick(localStorage.current_region_id, recommendation, $(this));
     });
   }
 
@@ -77,6 +87,7 @@ sfw.main = (function($) {
     var yql = sfw.yql({
       q : 'select * from seafoodwatch.region;'
     });
+    $.mobile.pageLoading();
     yql.retrieve(function(r) {
       addRegions(spec.container, spec.template, r);
     });
