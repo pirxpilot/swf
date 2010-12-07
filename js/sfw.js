@@ -1,3 +1,10 @@
+/*!
+ * Seafood Watch Mobile
+ *
+ * Copyright 2010, Damian Krzeminski
+ * Licensed under GPL Version 2 license.
+ */
+
 /*global localStorage, jQuery */
 
 var sfw = sfw || {};
