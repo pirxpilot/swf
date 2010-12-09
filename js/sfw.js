@@ -14,7 +14,7 @@ sfw.yql = (function ($) {
   function init(spec) {
     var self = {}, memo = {
       url : 'http://query.yahooapis.com/v1/public/yql',
-      env : 'http://github.com/dkrzemin/yql-tables/raw/wip/seafoodwatch/seafoodwatch.env'
+      env : 'http://datatables.org/alltables.env'
     };
 
     $.extend(memo, spec);
