@@ -50,7 +50,7 @@ sfw.main = (function ($) {
     if ($selector) {
       $selector.addClass('ui-btn-active');
     }
-    $.fixedToolbars.show(true);
+    $.fixedToolbars.show(false);
   }
 
   function onRegionClick(region_id, recommendation, $selector) {
@@ -62,9 +62,9 @@ sfw.main = (function ($) {
     localStorage.current_region_id = region_id;
     localStorage.current_recommendation = recommendation;
     $.fixedToolbars.hide(true);
-    $container.empty();
     $.mobile.pageLoading();
     yql.retrieve(function (r) {
+      $container.empty();
       addTips($container, $('#tip_template li'), r, $selector);
     });
   }
